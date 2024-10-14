@@ -1,21 +1,22 @@
-#include "Define.h"
-#include "GameManager.h"
+#include "CMainGame.h"
+
 
 void main()
 {
-	GameManager Game;
-
-	int Current = GetTickCount();
-
+	CMainGame Game;
 	Game.Initialize();
+
+	int Curr = GetTickCount();
+
 	while (true)
 	{
-		if (Current + 100 < GetTickCount())
+		if (Curr + 100 < GetTickCount())
 		{
-			Current = GetTickCount();
+			Curr = GetTickCount();
+			system("cls");
 			Game.Progress();
 			Game.Render();
 		}
 	}
-	Game.Release(); // Clean up resources.
+
 }
