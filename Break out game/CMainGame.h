@@ -1,10 +1,14 @@
 #pragma once
-#include "Define.h"
+#include "define.h"
+class CBar;
 class CBall;
+class CBlock;
 class CMainGame
 {
 private:
-	CBall* m_pBall= NULL;
+	CBar* m_pBar = NULL;
+	CBall* m_pBall = NULL;
+	CBlock* m_pBlock = NULL;
 public:
 	void Initialize();
 	void Progress();
@@ -14,3 +18,4 @@ public:
 	CMainGame();
 	~CMainGame();
 };
+
