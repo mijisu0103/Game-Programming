@@ -1,6 +1,7 @@
 #include "CBall.h"
 #include "CBar.h"
 #include "CBlock.h"
+
 void CBall::ScreenLine()
 {
     gotoxy(0, 0);
@@ -49,14 +50,15 @@ void CBall::ScreenLine()
     cout << "┃                                                                            ┃";
     gotoxy(0, 22);
     cout << "┃                                                                            ┃";
+   
     gotoxy(0, 23);
     cout << "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛";
 }
 
 int CBall::Collision(int x, int y)
 {
-    //벽돌
-    //20
+    // Block
+    // 20
     for (int i = 0; i < 20; i++)
     {
         if (m_pBlock->tBlock[i].nLife == 1)
@@ -65,7 +67,7 @@ int CBall::Collision(int x, int y)
                 x <= m_pBlock->tBlock[i].nX + 1 &&
                 y == m_pBlock->tBlock[i].nY)
             {
-                //1->2 2->1 5->4   4->5
+                // 1->2 2->1 5->4   4->5
                 if (m_tBall.nDirect == 1)
                     m_tBall.nDirect = 2;
                 else if (m_tBall.nDirect == 2)
@@ -78,11 +80,11 @@ int CBall::Collision(int x, int y)
                 m_pBlock->tBlock[i].nLife = 0;
                 return 1;
             }
-            else  if (x >= m_pBlock->tBlock[i].nX &&
+            else if (x >= m_pBlock->tBlock[i].nX &&
                 x <= m_pBlock->tBlock[i].nX + 1 &&
                 y == m_pBlock->tBlock[i].nY + 1)
             {
-                //1->2 2->1 5->4   4->5
+                // 1->2 2->1 5->4   4->5
                 if (m_tBall.nDirect == 1)
                     m_tBall.nDirect = 2;
                 else if (m_tBall.nDirect == 2)
@@ -98,10 +100,7 @@ int CBall::Collision(int x, int y)
         }
     }
     
-
-
-
-    //벽충돌
+    // Wall collision
     if (y == 0)
     {
         m_tBall.nDirect = g_WallCollision[0][m_tBall.nDirect];
@@ -118,14 +117,13 @@ int CBall::Collision(int x, int y)
         return 1;
     }
 
-    //바 충돌
-
+    // Paddle collision
     if (x >= m_pBar->m_tBar.nX[0] &&
         x <= m_pBar->m_tBar.nX[2] + 1 &&
         y == (m_pBar->m_tBar.nY))
     {
         m_tBall.nDirect = g_WallCollision[3][m_tBall.nDirect];
-        return 1;//방향이 바뀐다.
+        return 1; // Direction changes.
     }
     else if (x >= m_pBar->m_tBar.nX[0] &&
         x <= m_pBar->m_tBar.nX[2] + 1 &&
@@ -135,17 +133,11 @@ int CBall::Collision(int x, int y)
         return 1;
     }
 
-
     if (y == 23)
     {
         m_tBall.nDirect = g_WallCollision[3][m_tBall.nDirect];
         return 1;
     }
-
-
-
-   
-
 
     return 0;
 }
@@ -156,7 +148,7 @@ void CBall::KeyInput()
 
 void CBall::Initialize()
 {
-    m_tBall.nReady = 0; //0움직인다.
+    m_tBall.nReady = 0; // 0 means moving.
     m_tBall.nDirect = 2; 
     m_tBall.nX = 20;
     m_tBall.nY = 1;
@@ -187,13 +179,13 @@ void CBall::Progress()
             }
             break;
         case 3:
-            if (Collision(m_tBall.nX , m_tBall.nY + 1) == 0)
+            if (Collision(m_tBall.nX, m_tBall.nY + 1) == 0)
             {
                 m_tBall.nY++;
             }
             break;
         case 4:
-            if (Collision(m_tBall.nX-1, m_tBall.nY + 1) == 0)
+            if (Collision(m_tBall.nX - 1, m_tBall.nY + 1) == 0)
             {
                 m_tBall.nX--;
                 m_tBall.nY++;
@@ -228,4 +220,3 @@ CBall::CBall()
 CBall::~CBall()
 {
 }
-
